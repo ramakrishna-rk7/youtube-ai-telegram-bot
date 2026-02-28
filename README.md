@@ -1,223 +1,267 @@
-# 🎥 AI YouTube Video Summarizer & Q&A Telegram Bot
+# 🦞 OpenClaw AI Agent — YouTube Video Summarizer & Q&A Telegram Bot
 
-An intelligent Telegram assistant that reads a YouTube video, understands its content, summarizes it, and answers user questions **strictly based on the video transcript**.
+An **OpenClaw-style AI agent application** that reads a YouTube video, understands its content, summarizes it, and answers questions grounded strictly in the video transcript.
 
-This project demonstrates a practical **Retrieval-Augmented Generation (RAG)** system using a local LLM.
-
----
-
-## 🚀 Features
-
-* 🔗 Accepts any YouTube video link
-* 🧠 Automatically extracts video transcript
-* 📝 Generates structured summary (5 key points + takeaway)
-* ❓ Answers follow-up questions from the video
-* 🌐 Multi-language support (English / Hindi / Telugu)
-* 🚫 Prevents hallucinations (will refuse unrelated questions)
-* 💬 Fully interactive Telegram chat interface
-* 🏠 Runs locally using an LLM (no OpenAI API required)
+This project demonstrates how an LLM agent can use external tools (YouTube transcript retrieval) to produce reliable answers instead of hallucinating.
 
 ---
 
-## 🧠 How It Works
+## 🎯 Project Goal
 
-User sends a YouTube link →
-Bot extracts transcript →
-Transcript is given to local LLM →
-LLM summarizes and answers questions →
-Bot replies inside Telegram.
+Build an AI assistant where:
 
-This follows a **RAG architecture**:
+* A user interacts through Telegram
+* The AI agent retrieves real information from a tool
+* The model reasons over that information
+* The assistant answers only from verified context
 
-```
+This follows the **OpenClaw agent philosophy**:
+
+> LLM + Tools + Grounding = Reliable AI assistant
+
+---
+
+## ✨ Features
+
+* Accepts YouTube video links
+* Extracts subtitles automatically
+* Generates structured summary
+* Answers follow-up questions
+* Multi-language responses (English / Hindi / Telugu)
+* Context memory per user
+* Hallucination prevention (grounded answering)
+* Fully local AI inference
+
+---
+
+## 🧠 OpenClaw Agent Architecture
+
+```id="c9e0yq"
 Telegram User
       ↓
-Python Telegram Bot
+Agent Interface (Telegram Bot)
       ↓
-YouTube Transcript API
+OpenClaw-style Tool Invocation
       ↓
-Prompt + Context Injection
+YouTube Transcript Tool (Python)
       ↓
-Local LLM (Ollama – Kimi model)
+Context Injection (RAG Prompt)
+      ↓
+Local LLM (Ollama - Kimi)
       ↓
 Grounded Response
 ```
 
+Instead of answering from training data, the agent **retrieves information first and reasons over it**.
+
 ---
 
-## 🛠️ Tech Stack
+## 🔍 Why OpenClaw Matters
 
-| Component            | Technology             |
-| -------------------- | ---------------------- |
-| Language             | Python 3.12            |
-| Chat Interface       | Telegram Bot API       |
-| LLM Runtime          | Ollama                 |
-| Model                | kimi-k2.5              |
-| Transcript Retrieval | youtube-transcript-api |
-| Prompting            | Grounded RAG Prompting |
-| HTTP Communication   | requests               |
+Traditional chatbots:
+
+> Ask model → model guesses → hallucination risk
+
+OpenClaw-style agent:
+
+> Ask model → model calls tool → receives data → model reasons → reliable answer
+
+This project demonstrates **tool-augmented reasoning**, a core concept of modern AI agents.
+
+---
+
+## 🛠️ Technology Stack
+
+| Layer                   | Technology                    |
+| ----------------------- | ----------------------------- |
+| Agent Interaction       | Telegram Bot API              |
+| Agent Framework Concept | OpenClaw-style tool reasoning |
+| Tool                    | YouTube Transcript API        |
+| LLM Runtime             | Ollama                        |
+| Model                   | kimi-k2.5                     |
+| Language                | Python                        |
 
 ---
 
 ## 📦 Installation
 
-### 1️⃣ Clone Repository
+### 1. Clone Repository
 
-```bash
-git clone https://github.com/your-username/youtube-ai-bot.git
-cd youtube-ai-bot
+```id="60wq0a"
+git clone https://github.com/YOUR_USERNAME/youtube-ai-telegram-bot.git
+cd youtube-ai-telegram-bot
 ```
 
-### 2️⃣ Create Virtual Environment
+---
 
-```bash
+### 2. Create Virtual Environment
+
+```id="o9fns7"
 python -m venv venv
 venv\Scripts\activate
 ```
 
-### 3️⃣ Install Requirements
+---
 
-```bash
+### 3. Install Dependencies
+
+```id="u2a24j"
 pip install -r requirements.txt
 ```
 
-### 4️⃣ Install Ollama
+---
 
-Download and install:
-https://ollama.com
+## 🤖 Install Ollama (Required)
 
-Start Ollama:
+Download:
+https://ollama.com/download
 
-```bash
+Start server:
+
+```id="4hgn1p"
 ollama serve
 ```
 
-Pull model:
+Download model:
 
-```bash
+```id="66pfq4"
 ollama pull kimi-k2.5:cloud
 ```
 
 ---
 
-## 🤖 Create Telegram Bot
+## 🦞 Install OpenClaw (Agent Framework Demonstration)
+
+Install Node.js (v20+):
+https://nodejs.org
+
+Verify:
+
+```id="h9jv4p"
+node -v
+npm -v
+```
+
+Install OpenClaw:
+
+```id="t67u7y"
+npm install -g openclaw
+```
+
+Start gateway:
+
+```id="6yq2v9"
+openclaw gateway
+```
+
+Open UI:
+
+```id="f8ayjz"
+http://127.0.0.1:18791
+```
+
+(OpenClaw is used to demonstrate agent-tool orchestration concepts.)
+
+---
+
+## 🤖 Telegram Bot Setup
 
 1. Open Telegram
 2. Search **@BotFather**
 3. Run:
 
-```
+```id="r3s4j7"
 /newbot
 ```
 
-4. Copy the API Token
-5. Paste it inside:
+Create `.env`:
 
-```
-telegram_bot.py
-TOKEN = "YOUR_TOKEN_HERE"
+```id="acjyo8"
+TOKEN=YOUR_TELEGRAM_BOT_TOKEN
 ```
 
 ---
 
-## ▶️ Run the Project
+## ▶️ Run
 
-Start the bot:
+Ensure Ollama is running.
 
-```bash
+```id="r4kntc"
 python telegram_bot.py
 ```
 
-Open Telegram and message your bot.
+Message the bot on Telegram.
 
 ---
 
-## 💡 Example Usage
+## 💬 Example Interaction
 
 Send:
 
-```
+```id="3c6g1s"
 https://www.youtube.com/watch?v=8hly31xKli0
 ```
 
-Bot replies with structured summary.
-
 Ask:
 
-```
+```id="gyahj5"
 What is the video about?
 ```
 
 Change language:
 
-```
+```id="a5zsk3"
 Hindi
 Give summary
 ```
 
 ---
 
-## 🛡️ Hallucination Protection
+## 🛡️ Grounded AI (Anti-Hallucination)
 
-The assistant is intentionally restricted:
+If the question is unrelated:
 
-If a question is unrelated to the video, it replies:
-
+```id="kw4qks"
+Who won IPL 2023?
 ```
+
+Bot replies:
+
+```id="x6fa1h"
 This topic is not covered in the video.
 ```
 
-Example:
-
-```
-Who won IPL 2023?
-→ This topic is not covered in the video.
-```
-
-This demonstrates grounded AI behavior.
+This proves the agent relies on retrieved data rather than memorized knowledge.
 
 ---
 
 ## 📁 Project Structure
 
-```
-youtube-ai-bot/
-│
-├── telegram_bot.py        # Main Telegram interface
-├── openclaw_client.py     # LLM communication
-├── get_transcript.py      # Transcript testing
-├── summarize_video.py     # Prompt logic
-├── requirements.txt
-└── README.md
+```id="j9k20u"
+telegram_bot.py
+openclaw_client.py
+requirements.txt
+README.md
+.env (excluded)
 ```
 
 ---
 
-## 📌 Future Improvements
+## 📚 Concepts Demonstrated
 
-* Vector database memory (FAISS/Chroma)
-* Timestamped answers
-* Multiple video sessions
-* Voice message support
-* Web interface
+* AI Agents
+* Tool Calling
+* Retrieval Augmented Generation (RAG)
+* Prompt Grounding
+* Conversational Memory
+* LLM Safety (hallucination prevention)
 
 ---
 
 ## 👨‍💻 Author
 
 Rama Krishna
-B.Tech Student – AI/ML Software Engineering Enthusiast
-
----
-
-## ⭐ What This Project Demonstrates
-
-* Prompt Engineering
-* RAG (Retrieval Augmented Generation)
-* LLM grounding
-* Conversational memory
-* API integration
-* Real-world AI application design
+B.Tech Student – AI/Software Engineering Enthusiast
 
 ---
 
